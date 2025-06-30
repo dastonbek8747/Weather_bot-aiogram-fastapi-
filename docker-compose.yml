@@ -1,0 +1,22 @@
+services:
+  fastapi:
+    build:
+      context: ./fastapi
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./fastapi:/app
+
+  bot:
+    build:
+      context: ./bot
+    env_file:
+      - .env
+    volumes:
+      - ./bot:/app
+    depends_on:
+      - fastapi
+
+networks:
+  app-network:
+    driver: bridge
